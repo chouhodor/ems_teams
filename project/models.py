@@ -1,17 +1,9 @@
 import os
-from poplib import POP3_PORT
-from select import epoll
-from unittest import mock
 from . import db
 from flask_login import UserMixin
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
 import jwt
 from time import time
-
-user_bookmarks =db.Table('user_bookmarks', 
-  db.Column('user_id', db.Integer, db.ForeignKey('user.id')),
-  db.Column('events_id', db.Integer, db.ForeignKey('events.id'))
-)
 
 
 class User(UserMixin, db.Model):
@@ -19,7 +11,6 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(100), unique=True)
   password = db.Column(db.String(100))
   username = db.Column(db.String(150))
-  bookmarks = db.relationship('Events', secondary=user_bookmarks, backref='bookmark')
   events = db.relationship('Events', backref = 'user', lazy='dynamic')
 
   def __repr__(self):
@@ -59,7 +50,6 @@ class Events(db.Model):
     name = db.Column(db.String(100), nullable=True)
     location = db.Column(db.String(100), nullable=True)
     startDate = db.Column(db.Date)
-    endDate = db.Column(db.Date)
     ephysician = db.Column(db.String(100), nullable=True)
     med_officer = db.Column(db.String(100), nullable=True)
     med_assistant = db.Column(db.String(100), nullable=True)

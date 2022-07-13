@@ -10,7 +10,6 @@ from .. import db
 from werkzeug.utils import secure_filename
 from google.cloud import storage
 from dateutil.relativedelta import relativedelta
-from ..tbconfig import tb, channel_id
 import calendar
 import uuid as uuid
 import os
@@ -80,13 +79,10 @@ def addevent():
     file1_desc = request.form['eventupdate-description1']
     file2_desc = request.form['eventupdate-description2']
     uploaded_file1 = request.files['file1']
-    uploaded_file2 = request.files['file2']
 
     user = current_user.id
 
-    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])
-    filename2 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file2.filename)[1])
-    
+    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
 
     if request.method == 'POST':
 
@@ -183,33 +179,11 @@ def addevent():
                 file1_id = None
 
 
-            if filename2 != '' and file2_desc != '':
-                file2_ext = os.path.splitext(filename2)[1]
-                if file2_ext not in current_app.config['UPLOAD_EXTENSIONS']:
-                    #abort(400)
-                    flash('Only upload jpg, png or pdf files', 'danger')
-                    return redirect(request.referrer)
-                elif file2_ext == '':
-                    flash('Please upload appropriate file to File/image 2', 'danger')
-                    return redirect(request.referrer)
-
-                else:
-                    blob2 = bucket.blob(filename2)
-                    if os.path.splitext(filename2)[1] == '.pdf':
-                        blob2.upload_from_string(uploaded_file2.read(), content_type='application/pdf')
-                    else:
-                        blob2.upload_from_string(uploaded_file2.read())
-                    file2_id = filename2
-                
-            else:  
-                file2_desc = None
-                file2_id = None
 
             new_event = Events(user_id=user, name=name, location = location, startDate = startDate, 
                 endDate = endDate,description=description, created_by=current_user.username,
                 link=link, linktype=linktype, public=public,
-                file1_desc=file1_desc, file2_desc=file2_desc,
-                file1_id=file1_id, file2_id=file2_id
+                file1_desc=file1_desc, file2_desc=file2_desc
                 )
 
         user= User.query.get(current_user.id)

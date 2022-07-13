@@ -31,13 +31,6 @@
         <li class="nav-item">
           <a class="nav-link {% if nav_index %}active{% endif %}" href="{{ url_for('calendar.index') }}">All Events</a>
         </li>
-        {% if current_user.is_authenticated %}
-        <li class="nav-item">
-          <a class="nav-link {% if nav_my_event %}active{% endif %}" href="{{ url_for('calendar.my_events', username=current_user.username) }}">My Calendar</a>
-        </li>
-        {% endif %}
-
-
       </ul>
     </div>
     <!---

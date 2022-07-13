@@ -19,7 +19,7 @@ talisman = Talisman()
 
 def create_app():
   app = Flask(__name__)
-  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql12456214:RE3u94QyLn@sql12.freemysqlhosting.net/sql12456214'
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sql12436225:9V4TUBB2NZ@sql12.freemysqlhosting.net/sql12436225'
   app.config['SECRET_KEY'] = 'ems_medical_standby'
   app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
   app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
