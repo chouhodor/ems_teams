@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "em-coursecalendar",
+  "private_key_id": "dd3a303584703400df7159257705993bcf97a874",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCohqsFoH/h8oEZ\n/EUnobJYbnbgLWL1biO0MhUtOLp4nQrnbxqmiSqkdgIrCSBIGq/fPf87ar8FiAnL\nfpQ+wlEkM0QrpXPHbmSTlcxAEEHFVXwovxkopAfomo+p0KVQrlRMeu0TfnGZsTTf\nx3DPdTyTwU4yekp0Hw8bINnnzvK9KOGYimv6Bt7iPQeLC/4u8ESPLIRy8y3/sR7i\nVXjLZXutZoDK5IeIqDTuOqa1XH5LdorC+rxGe9gsQ5z+VXppAH7rDstoyyOxPN8o\nIH+UnUAzxT7BqqAGFX4BiSn5x3fJ9d15ZsaTo6zp+MSltFscDzBbscSefDDTZtw5\n/g6pR44tAgMBAAECggEABsJT9KdRybmktOqZyXOiSAqyKN6ZI/fVZcJGeChYzkKa\nL9sUag6BT9RN1PUKPuoXGLCPXo4y+CFTJz696mB3yahmuQtrP9ntHcA5z233fVcm\n4il79FXT3V/pmCl+n+RGDEU34frFyqDBWqJQo3lzwwdTQBIIj2y5eeCQ7Muvj6eV\n6Pwo5gD3ELJhiDIkQWKsf3W6wHSh6+ksRAI2r3Io0VdxYMXseopONULdSHvNUxTr\nZVyO9Y6j4oSSExH1RjOMmKdAfeYgXlZ+5B9Rcc2AmhIy864cIwYe37FOm9OxHWpw\n46ffkFmbwfqbhxTLdRON7SoGPyOrNFjv1FiKiEiLYQKBgQDbbxtCLI/psr4itEoo\npeiJoG8owQMUnhdaJFq6OTr8VwMSKNYlBZkn2HpW0eEJ8wDLXOUBiWEQ/ba0iyL7\nlBQyPaiGB98TaXa+fB3CLR8ByUPGg3RLB3gcOdB2CarCoESk/eqtcH1WoCUDUpob\ncj+jAkLNWPXKriQZ4NdLVXqiUQKBgQDEm92FoRD6xRkYTdph1CC5HiX8xEJcPOwy\nAByq1UkaJSFgr0W6j0EJ6cVS00ICvy/SKx4Gf/rvlb5gCTq9ibQTABoLzdiCk11o\nJcgNsZ13xh/IBTsSzWffuo5CKzN0byDzUr+emA3t7Bk+v+ir4Wvq+Ou8eneDUD8W\n9MA4EjK7HQKBgAaHccowRT/w35NsxeAbv6WIroYJ6CuO4Kb/+esclNK5TBAYQvbr\nCbmTyWAX8pg3MMjcRLwc+FRnGC6bDTlrGIa+KuuCBHMxaiUU0FXcvdVxxaB8fNNW\nr443cipw8zHDTweRvo/WjwQq068boBY8+gPBp3cwtG+Jau2SMRW+v11hAoGAYtrb\n7yylFPG1RHsgqr+2FF4MS6OCmk4nlJxpzZugPf0dYze9n6gX05wvEw4VyrvGl64G\nUs5WpdBtAGyjlFmAqW0Lq5O8oSrndE5K4FfGDUsY/8FhinqtF9j9XlfKb2jQ8IdS\nwbNCjbaAmwRzQLj/Qg4WuZX6MZRPpIM7gvXjfCECgYEAld/YH6xLhs2aAGdpAlD6\npIpZbba4ihmxs91z7Dks5fIXoRcQWjGPWKZY9t2Pq1CLiKyAEVxCLi7kH3R9s1Mc\nthTchBIfoCsToulGJp8G4Ta50Zi1cCPSwrXVYCOLsQHgEYuPQ8PLCwf0bpEKI7IC\nCkyiZeKZJD6wFOQIgMzwGMQ=\n-----END PRIVATE KEY-----\n",
+  "client_email": "emcc-admin@em-coursecalendar.iam.gserviceaccount.com",
+  "client_id": "103740028829563911090",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/emcc-admin%40em-coursecalendar.iam.gserviceaccount.com"
+}

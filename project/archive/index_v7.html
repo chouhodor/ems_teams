@@ -1,0 +1,450 @@
+{% extends "base.html" %}
+{% block nav %}{% endblock %}
+{% block content %}
+<div class="container" style="padding-top: 10px;">
+<img src="../static/img/emcc_logo.jpeg" style="max-width: 500px;width: 100%;height: auto;margin-left: auto ;margin-right: auto ;display: block;">
+<h2 style="text-align: center;">All Events Calendar</h2>
+<div id="calendar" style="padding: 10px;"></div>
+{% if current_user.is_authenticated %}
+
+<!-------    MODAL EVENT ------->
+<!----
+<div class="modal fade" id="event-modalx">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add/Update Course Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/calendar/addevent" method="POST" class="form-horizontal">
+          <input type="hidden" name="event-index">
+          <div class="form-group row">
+            <label for="event-name" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-8">
+              <input id="event-name" name="event-name" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="event-location" class="col-sm-4 control-label">Location</label>
+            <div class="col-sm-8">
+              <input id="event-location" name="event-location" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="min-date" class="col-sm-4 control-label">Dates</label>
+            <div class="col-sm-8">
+              <div class="input-group input-daterange" data-provide="datepicker">
+                <input id="min-date" name="event-start-date" type="text" class="form-control"
+                  data-date-format="dd/mm/yyyy">
+                <div class="input-group-prepend input-group-append">
+                  <div class="input-group-text">to</div>
+                </div>
+                <input name="event-end-date" type="text" class="form-control" data-date-format="dd/mm/yyyy">
+              </div>
+            </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-primary" id="save-event" value="Save"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+-->
+
+<!-------    MODAL UPDATE ------->
+
+<div class="modal fade" id="eventupdate">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add/Update Course Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form action="/addevent" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+          <input type="hidden" name="eventupdate-index">
+          <div class="form-group row">
+            <label for="eventupdate-name" class="col-sm-4 control-label">Name*</label>
+            <div class="col-sm-8">
+              <input id="eventupdate-name" name="eventupdate-name" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventupdate-location" class="col-sm-4 control-label">Location*</label>
+            <div class="col-sm-8">
+              <input id="eventupdate-location" name="eventupdate-location" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="min-date" class="col-sm-4 control-label">Dates*</label>
+            <div class="col-sm-8">
+              <div class="input-group input-daterange" data-provide="datepicker">
+                <input id="min-date" name="eventupdate-start-date" type="text" class="form-control"
+                  data-date-format="dd/mm/yyyy" required>
+                <div class="input-group-prepend input-group-append">
+                  <div class="input-group-text">to</div>
+                </div>
+                <input name="eventupdate-end-date" type="text" class="form-control" data-date-format="dd/mm/yyyy"required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventupdate-description" class="col-sm-4 control-label">Description</label>
+            <div class="col-sm-8">
+            <textarea type="text" class="form-control" name="eventupdate-description" id="eventupdate-description" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventupdate-link" class="col-sm-4 control-label">Link/Registration</label>
+            <div class="col-sm-8">
+              <input id="eventupdate-link" name="eventupdate-link" type="text" class="form-control">
+            </div>
+          </div>
+          <div class="form-group row">           
+            <label class="col-sm-4 control-label" for="eventupdate-public">Share to public*</label>
+            <div class="col-sm-8">
+            <input type="checkbox" id="eventupdate-public" name="eventupdate-public">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 control-label" for="eventupdate-description1">File/image 1</label>
+            <div class="col-sm-8">
+            <input class="form-control" id="eventupdate-description1" name="eventupdate-description1" type="text" placeholder="description">
+            <input type="file" id="file1" name="file1">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 control-label" for="eventupdate-description2">File/image 2</label>
+            <div class="col-sm-8">
+            <input class="form-control" id="eventupdate-description2" name="eventupdate-description2" type="text" placeholder="description">
+            <input type="file" id="file2" name="file2">
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-primary" id="save-event" value="Save"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------    MODAL DELETE ------->
+<!----
+<div class="modal fade" id="eventdelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete of Course Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <form action="/delete" method="POST">
+          <input type="hidden" name="eventdelete-index">
+              Are you sure to DELETE the following course?
+              <p id="eventdelete-name" name="eventdelete-name">Text</p>
+              <p id="eventdelete-location" name="eventdelete-location">Text</p>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-danger" id="save-event" value="DELETE"></input>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+--->
+
+{% endif %}
+
+<!-------    MODAL DETAIL ------->
+<div class="modal fade" id="eventdetail">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Detail of Course Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/save_event" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="eventdetail-index">
+          <div class="form-group row">
+            <label for="eventdetail-name" class="col-sm-4 control-label">Name</label>
+            <div class="col-sm-8">
+              <p id="eventdetail-name" name="eventdetail-name">Text</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventdetail-location" class="col-sm-4 control-label">Location</label>
+            <div class="col-sm-8">
+              <p id="eventdetail-location" name="eventdetail-location">Text</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="min-date" class="col-sm-4 control-label">Dates</label>
+            <div class="col-sm-8">
+              <div class="input-group input-daterange" data-provide="datepicker">
+                <input id="min-date" name="eventdetail-start-date" type="text" class="form-control"
+                  data-date-format="dd/mm/yyyy" disabled>
+                <div class="input-group-prepend input-group-append">
+                  <div class="input-group-text">to</div>
+                </div>
+                <input name="eventdetail-end-date" type="text" class="form-control" data-date-format="dd/mm/yyyy" disabled>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventdetail-description" class="col-sm-4 control-label">Description</label>
+            <div class="col-sm-8">
+            <p name="eventdetail-description" id="eventdetail-description">Text</p>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventdetail-link" class="col-sm-4 control-label">Link/Registration</label>
+            <div class="col-sm-8">
+              <a id="eventdetail-link" name="eventdetail-link" href="link" target="blank">Text</a>
+            </div>
+          </div>
+
+          <div class="form-group row" id="filediv1" name="filediv1">
+            <label class="col-sm-4 control-label" for="eventdetail-description1">File/image 1</label>
+            <div class="col-sm-8">
+              <a id="eventdetail-file1_id" name="eventdetail-file1_id" href="link" target="blank">Text</a>
+            </div>
+          </div>
+          <div class="form-group row" id="filediv2" name="filediv2">
+            <label class="col-sm-4 control-label" for="eventdetail-description2">File/image 2</label>
+            <div class="col-sm-8">
+              <a id="eventdetail-file2_id" name="eventdetail-file2_id" href="link" target="blank">Text</a>
+            </div>
+          </div>
+          <!--
+          <div class="form-group row">
+            <label for="eventdetail-created_by" class="col-sm-4 control-label">Created by</label>
+            <div class="col-sm-8">
+              <a id="eventdetail-created_by" name="eventdetail-created_by" href="link">Text</a>
+            </div>
+          </div>
+          --->
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-success" id="bookmark_event" name="bookmark_event" value="Bookmark event"></input>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div id="context-menu"></div>
+<hr>
+<h3 id="upcoming">Upcoming course</h3>
+{% for u in upcoming %}
+<div class="card" style="margin: 40px;">
+  <div class="card-body">
+    <h5 class="card-title">{{u.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Location : {{ u.location }}</h6>
+    <p class="card-text">Date : {{ u.startDate.strftime("%d/%m/%Y") }} to {{ u.endDate.strftime("%d/%m/%Y") }}</p>
+    <p class="card-text">Description : {{ u.description }}</p>
+    <p class="card-text">Link : <a class="card-link" href="{{ u.link }}" target="blank">{{ u.link }}</a></p>
+    {% if u.file1_id %}
+    <p class="card-text">Files : 
+    <a class="card-link" href="{{'https://storage.googleapis.com/emcc_date_bucket/' + u.file1_id}}" target="blank">{{u.file1_desc}}</a>
+    {% else %}
+
+    {% endif %}
+    {% if u.file2_id %}
+    ,<a class="card-link" href="{{'https://storage.googleapis.com/emcc_date_bucket/' + u.file2_id}}" target="blank">{{u.file2_desc}}</a></p>
+    {% endif %}
+    <!---<p class="card-text">Created by : {{ u.created_by }}</p>--->
+
+  </div>
+</div>
+{% endfor %}
+
+{% endblock %}
+</div>
+{% block scripts%}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js'></script>
+<script src='../static/js/js-year-calendar.js'></script>
+<script src='../static/js/bootstrap-datepicker.min.js'></script>
+<script>
+  let calendar = null;
+
+  /*function editEvent(event) {
+    $('#event-modal input[name="event-index"]').val(event ? event.id : '');
+    $('#event-modal input[name="event-name"]').val(event ? event.name : '');
+    $('#event-modal input[name="event-location"]').val(event ? event.location : '');
+    $('#event-modal input[name="event-start-date"]').datepicker('update', event ? event.startDate : '');
+    $('#event-modal input[name="event-end-date"]').datepicker('update', event ? event.endDate : '');
+    $('#event-modal').modal();
+  }
+
+  function updateEvent(event) {
+    $('#eventupdate input[name="eventupdate-index"]').val(event ? event.id : '');
+    $('#eventupdate input[name="eventupdate-name"]').val(event ? event.name : '');
+    $('#eventupdate input[name="eventupdate-location"]').val(event ? event.location : '');
+    $('#eventupdate input[name="eventupdate-start-date"]').datepicker('update', event ? event.startDate : '');
+    $('#eventupdate input[name="eventupdate-end-date"]').datepicker('update', event ? event.endDate : '');
+    $('#eventupdate').modal();
+  }
+  */
+
+  function addEvent(event) {
+    $('#eventupdate input[name="eventupdate-start-date"]').datepicker('update', event ? event.startDate : '');
+    $('#eventupdate input[name="eventupdate-end-date"]').datepicker('update', event ? event.endDate : '');
+    $('#eventupdate').modal();
+  }
+
+  function detailEvent(event) {
+    $('#eventdetail input[name="eventdetail-index"]').val(event ? event.id : '');
+    $('#eventdetail-name').html(event ? event.name : '');
+    $('#eventdetail-location').html(event ? event.location : '');
+    $('#eventdetail input[name="eventdetail-start-date"]').datepicker('update', event ? event.startDate : '');
+    $('#eventdetail input[name="eventdetail-end-date"]').datepicker('update', event ? event.endDate : '');
+    $('#eventdetail-description').text(event ? event.description : '');
+    $('#eventdetail a[name="eventdetail-link"]').html(event ? event.link : '');
+    $('#eventdetail-link').attr("href", event ? event.link : '');
+    $('#eventdetail input[name="eventdetail-public"]').prop('checked', event ? event.id : '');
+    $('#eventdetail-public').html(event ? event.public : '');
+
+    if (event.file1_id != 'None') {
+      $('#filediv1').show()
+      $('#eventdetail-file1_id').html(event ? event.file1_desc : '');
+      $('#eventdetail-file1_id').attr("href", event ? 'https://storage.googleapis.com/emcc_date_bucket/' + event.file1_id : '');
+    }
+    else {
+      $('#filediv1').hide()
+    }
+
+    if (event.file2_id != 'None') {
+      $('#filediv2').show()
+      $('#eventdetail-file2_id').html(event ? event.file2_desc : '');
+      $('#eventdetail-file2_id').attr("href", event ? 'https://storage.googleapis.com/emcc_date_bucket/' + event.file2_id : '');
+    }
+    else {
+      $('#filediv2').hide()
+    }
+    $('#eventdetail-created_by').html(event ? event.created_by : '');
+    $('#eventdetail-created_by').attr("href", event ? event.created_by : '');
+    {% if current_user.is_authenticated %}
+    if ({{current_user.id | safe}} == event.user_id) {
+      $('#bookmark_event').hide()
+    }
+    else {
+      $('#bookmark_event').show()
+    }
+    {% else %}
+    $('#bookmark_event').hide()
+    {% endif %}
+
+    $('#eventdetail').modal();
+
+  }
+/*
+  function deleteEvent(event) {
+    $('#eventdelete input[name="eventdelete-index"]').val(event ? event.id : '');
+    $('#eventdelete-name').html(event ? event.name : '');
+    $('#eventdelete-location').html(event ? event.location : '');
+    $('#eventdelete').modal();
+  }
+*/
+  $(function () {
+    var currentYear = new Date().getFullYear();
+
+    calendar = new Calendar('#calendar', {
+      enableContextMenu: true,
+      enableRangeSelection: true,
+      contextMenuItems: [
+        {
+          text: 'Details',
+          click: detailEvent
+        }
+      ],
+    /*selectRange: function (e) { 
+      if (e.events.length == 0) {
+        addEvent({ startDate: e.startDate, endDate: e.endDate });
+        }
+    },*/
+    mouseOnDay: function (e) {
+      if (e.events.length > 0) {
+        var content = '';
+
+        for (var i in e.events) {
+          content += '<div class="event-tooltip-content">'
+            + '<div class="event-name" style="color:' + e.events[i].color + '">' + e.events[i].name + '</div>'
+            + '<div class="event-location">' + e.events[i].location + '</div>'
+            //+ '<div class="event-location">' + e.events[i].created_by + '</div>'
+            + '</div>';
+        }
+
+        $(e.element).popover({
+          trigger: 'manual',
+          container: 'body',
+          html: true,
+          content: content
+        });
+
+        $(e.element).popover('show');
+      }
+    },
+    mouseOutDay: function (e) {
+      if (e.events.length > 0) {
+        $(e.element).popover('hide');
+      }
+    },
+    dayContextMenu: function (e) {
+      $(e.element).popover('hide');
+    },
+
+
+
+    dataSource: [
+    {% for m in main %}
+  {
+    id: {{ m.id }},
+    name: '{{ m.name }}',
+    location: '{{ m.location }}',
+    description: '{{ m.description | safe }}',
+    startDate: new Date({{ m.startDate }}),
+    endDate: new Date({{ m.endDate }}),
+    link: '{{ m.link }}',
+    public: '{{ m.public }}',
+    file1_desc: '{{ m.file1_desc }}',
+    file2_desc: '{{ m.file2_desc }}',
+    file1_id: '{{ m.file1_id }}',
+    file2_id: '{{ m.file2_id }}',
+    created_by: '{{ m.created_by }}',
+    user_id: {{ m.user_id }}
+                },
+  {% endfor %}
+            ]
+        });
+
+
+    });
+
+</script>
+
+
+{% endblock %}

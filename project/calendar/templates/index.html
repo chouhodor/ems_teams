@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block nav %}{% endblock %}
+{% block head %}
+{{super()}}
+<head>
+  <style>
+    a {
+      color: #0254EB
+    }
+    a:visited {
+      color: #0254EB
+    }
+    a.morelink {
+      text-decoration:none;
+      outline: none;
+    }
+    .morecontent span {
+      display: none;
+    }
+    :target {
+      display: block;
+      position: relative;
+      top: -120px; 
+      visibility: hidden;
+    }
+
+  </style>
+</head>
+
+{% endblock %}
+{% block content %}
+<div class="container" style="padding-top: 10px;">
+<img src="../static/img/front_logo.jpeg" style="max-width: 500px;width: 100%;height: auto;margin-left: auto ;margin-right: auto ;display: block;">
+<h2 style="text-align: center;">My Events Calendar</h2>
+<!-- <div id="calendar" style="padding: 10px;"></div>--->
+
+<!-------    MODAL UPDATE ------->
+
+<div class="modal fade" id="eventupdate">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add/Update Course Event</h5>
+        <button type="button" class="close" id="close_modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div id="flash_msg">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+              {% if category == 'message' %}
+                <div class="alert alert-danger" role="alert">
+              {% else %}
+                <div class="alert alert-{{ category }}" role="alert">
+              {% endif %}
+                {{ message }}
+              </div>
+              {% endfor %}
+            {% endif %}
+        {% endwith %}
+      </div>
+        <form action="/addevent" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="eventupdate-index">
+          <div class="form-group row">
+            <label for="eventupdate-name" class="col-sm-4 control-label">Name*</label>
+            <div class="col-sm-8">
+              <input id="eventupdate-name" name="eventupdate-name" type="text" class="form-control" maxlength="40" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventupdate-location" class="col-sm-4 control-label">Location*</label>
+            <div class="col-sm-8">
+              <input id="eventupdate-location" name="eventupdate-location" type="text" class="form-control" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="min-date" class="col-sm-4 control-label">Dates*</label>
+            <div class="col-sm-8">
+              <div class="input-group input-daterange" data-provide="datepicker">
+                <input id="min-date" name="eventupdate-start-date" type="text" class="form-control"
+                  data-date-format="dd/mm/yyyy" required>
+                <div class="input-group-prepend input-group-append">
+                  <div class="input-group-text">to</div>
+                </div>
+                <input name="eventupdate-end-date" type="text" class="form-control" data-date-format="dd/mm/yyyy"required>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="eventupdate-description" class="col-sm-4 control-label">Description</label>
+            <div class="col-sm-8">
+            <textarea type="text" class="form-control" name="eventupdate-description" id="eventupdate-description" rows="7" placeholder="please remove icons and emoji" required></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-4 control-label" for="eventupdate-description1">File/image 1<br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
+            <div class="col-sm-8">
+              <span><a id="eventupdate-file1_id" name="eventupdate-file1_id" href="link" target="blank">Text</a>&nbsp&nbsp<button id="file1_btn" type="button" class="btn btn-default">Update file</button></span>
+              <div id="file1_input">
+                <input type="file" class="form-control-file" id="file1" name="file1">
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-primary" id="save-event" value="Save"></input>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-------    MODAL DELETE ------->
+<div class="modal fade" id="eventdelete">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Delete of Course Event</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <form action="/delete" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="eventdelete-index">
+              Are you sure to DELETE the following course?
+              <p id="eventdelete-name" name="eventdelete-name" style="font-weight: bold;">Text</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-danger" id="save-event" value="DELETE"></input>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+
+{% if user_page != True%}
+<hr>
+<br>
+<br>
+<h3>Upcoming course</h3>
+<br>
+{% for u in event_standby %}
+<div class="card" style="margin: 0.3em;">
+  <div class="card-body">
+    <h5 class="card-title">{{u.name}}</h5>
+    <h6 class="card-subtitle mb-2 text-muted">Location : {{ u.location }}</h6>
+    <p class="card-text">Date : {{ u.startDate.strftime("%d/%m/%Y") }} to {{ u.endDate.strftime("%d/%m/%Y") }}</p>
+    <p class="card-text"><div class="comment more">Description : <br>{{ u.description | safe}}</div></p>
+           
+    {% if u.file1_id %}
+    <p class="card-text">Files : 
+    <a class="card-link" href="{{'https://storage.googleapis.com/emcc_date_bucket/' + u.file1_id}}" target="blank">{{u.file1_desc}}</a>
+    {% endif %}
+    {% if u.file2_id %}
+    ,<a class="card-link" href="{{'https://storage.googleapis.com/emcc_date_bucket/' + u.file2_id}}" target="blank">{{u.file2_desc}}</a></p>
+    {% endif %}
+    <p class="card-text">Created by : {{ u.created_by }}</p>
+
+  </div>
+</div>
+<br>
+{% endfor %}
+{% endif %}
+<br>
+<br>
+<br>
+
+{% endblock %}
+</div>
+{% block scripts%}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js'></script>
+<script src='../static/js/bootstrap-datepicker.min.js'></script>
+
+{% endblock %}
