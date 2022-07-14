@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "ems-teams",
+  "private_key_id": "e209e1afed3ea3d2e9c74c33f6500d24ea1aa0e9",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDkknWsLQc3cmO6\nOzLwlp/FG35fKt0DvPIgFYjoyBUCheW+5ZxHjyZ7qBsqFuC+9WqO/C4VIWvlZcWu\n+b7iiiJEZjfebO3VoxCOTm36QqUDbmOR/ENo7Wt4sHfuBF5rPVazfXwhrLA1C5hc\n4Jr0TrdG3JtPOc0kzVBFQu5oFrWjRga2PyzFplje83lpRi1pks7QSrSZe0L0XMmU\n35yk9jfObngVh+dqcFW5rR/2w3s3PiFPykVo0rAc8U6XK8ZtdMQugjlvAJY1ALkU\nQrBZm8oRCsipVqm9r0ARIrB9YfYS0I4ePm4RBwKCeShfWdYnaLmeADIQkeoBI8OI\ngXdHiVw9AgMBAAECggEAHSBOpLXeMAzAXt2mpELFXDQghSxXRTUsCLZFynKd6W2P\nik+u+5gRuCXX7vlDAq0PkDsxUhmpVUOD48PztOFo9ByvF4WmRELHBs3sChJjqE1w\n8bbauNcG4Au4qe4I7BMWZmvh8qvojkc1JKIDDN5aUMomyPsyxB2c53Pby7bCcZS/\n9WooOFNCWLltsmmR7jwGMrgcndJuBWqWEOZeCYk5nwEuubpB20hdbFf4V3x9Jl1Z\nw9Qpy1+DMhMxdABoeu8I38zMfR9DIGBT/PS8+YDu5WYnSWi0Chx+DAO0xL20Ki5i\nHMbDE6S6TGKgpkDT5CR4NnHmcC1vrj8X1I/4wNoV7wKBgQD4ZSaWA7LqUvHANKHv\nbLxHx0t5gYZA/qhWxRpCfL45hxop8y9uMMinUMq+4C6ktifZ0HXjkCH7Sf/zLQT+\nyGCw+izaKEHmjDVSklgay5DGmk3ZUsXZ/YNx4XDNr7Kginrbfiy46tzNHPe7keEN\no+qWQfnGzWX994unfiQiVT7yPwKBgQDrkfEfUYLeY9X/U8x3LJ/eHei8TH3/K3rI\ncfHnuNp8yESKsyW1D7aG66I5YHQW+EbD9X6LJvJXJYYoZQgGGlirjTiIaXAdznxK\naguCV6uIg6BuS+nf1addA+HI9VO2BATIFWR77jDaJnTz5SXecAQguc8KUMKrXH7n\ndqMKXAcagwKBgAs2FY3D0Pl+kObJ+V0jHURoHGH5lKOuWs6/yrWhh7x0+ptWHJfu\nn7/dh6kh2TkZ96Z/IDMLOF1tM544M/eD98lFIW0fUAol3epCLLPY6EnugQEEGWYD\naUFkmYDPI1LXrT/m7AHUp+6iFhRjOzMwaNArXii48JeL6sO+j8b07ghlAoGBAKpn\nDKPaA6+5SkCDLqF6fz5eJk+niXD+07eRbSpw9mNTPvmR85HRBvj8FIIqum8vM4lm\n2R3xk1Xkx/IKe05m2oNmCWHr23VEO3Zc1Wx43JVImdGPSmNnGsTXHQmQJPjCWW8e\nwmw/dckoDmuq88S/BM1je1f76YWpyAbJM9E3ls/fAoGBAIOAGeGlSqKQPjCQ6+Qe\nQL4BhkaA+oxCjGgDwljHp3lpLbNBzab09Ff5j8Rhiac4lboNI9NgDwNNWYYl/Ouf\nwhpPC1TjNH9WYVRfpxEuUGgtDDvgDmhiQ/b4FPeUqJslpGeQvKt/yzszNYDyy+Aw\nH5SSBcI6AQH5rRyD63ikxsRS\n-----END PRIVATE KEY-----\n",
+  "client_email": "ems-teams-admin@ems-teams.iam.gserviceaccount.com",
+  "client_id": "112937769948190116998",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ems-teams-admin%40ems-teams.iam.gserviceaccount.com"
+}

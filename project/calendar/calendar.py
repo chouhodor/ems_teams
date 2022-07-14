@@ -19,9 +19,9 @@ import time
 calendar = Blueprint('calendar', __name__, template_folder='templates', static_folder='static')
 
 ##################GOOGLE CLOUD BUCKET#####################
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "em-coursecalendar.json"
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "ems-teams.json"
 storage_client = storage.Client()
-bucket = storage_client.get_bucket('emcc_date_bucket')
+bucket = storage_client.get_bucket('event-file')
 
 @calendar.route('/')
 def index():
@@ -71,13 +71,7 @@ def addevent():
     name = remove_breaks(request.form['eventupdate-name'])
     location = remove_breaks(request.form['eventupdate-location'])
     startDate = dateform(request.form['eventupdate-start-date'])
-    endDate = dateform(request.form['eventupdate-end-date'])
     description = remove_breaks(request.form['eventupdate-description'])
-    link = request.form['eventupdate-link']
-    linktype = request.form['eventupdate-linktype']
-    public= bool(request.form.get('eventupdate-public'))
-    file1_desc = request.form['eventupdate-description1']
-    file2_desc = request.form['eventupdate-description2']
     uploaded_file1 = request.files['file1']
 
     user = current_user.id
@@ -96,7 +90,7 @@ def addevent():
                         flash('Only upload jpg, png or pdf files', 'danger')
                         return redirect(request.referrer)
                     elif file1_ext == '':
-                        flash('Please upload appropriate file to File/image 1', 'danger')
+                        flash('Please upload appropriate file to File/image', 'danger')
                         return redirect(request.referrer)
                     else:
                         new_file1_id = filename1
@@ -105,50 +99,16 @@ def addevent():
                             blob1.upload_from_string(uploaded_file1.read(), content_type='application/pdf')
                         else:
                             blob1.upload_from_string(uploaded_file1.read())
-                        update_events.file1_desc = file1_desc
                         update_events.file1_id = new_file1_id
 
                 else:
-                    file1_desc = None
                     file1_id = None
-            else:
-                if file1_desc != '':
-                    if filename1 != '':
-                        file1_ext = os.path.splitext(filename1)[1]
-                        if file1_ext not in current_app.config['UPLOAD_EXTENSIONS']:
-                            flash('Only upload jpg, png or pdf files', 'danger')
-                            return redirect(request.referrer)
-                        elif file1_ext == '':
-                            flash('Please upload appropriate file to File/image 1', 'danger')
-                            return redirect(request.referrer)
-                        else:
-                            try:
-                                blob1 = bucket.blob(update_events.file1_id)
-                                blob1.delete()
-                            except:
-                                pass
-                            new_file1_id = filename1
-                            blob1 = bucket.blob(filename1)
-                            if os.path.splitext(filename1)[1] == '.pdf':
-                                blob1.upload_from_string(uploaded_file1.read(), content_type='application/pdf')
-                            else:
-                                blob1.upload_from_string(uploaded_file1.read())
-                            update_events.file1_desc = file1_desc
-                            update_events.file1_id = new_file1_id
-                    else:
-                        file1_desc = None
-                        file1_id = None
-                else:
-                    pass
+
 
             update_events.name = name
             update_events.location = location
             update_events.startDate = startDate
-            update_events.endDate = endDate
             update_events.description = description
-            update_events.link = link
-            update_events.linktype = linktype
-            update_events.public = public
             
            
             db.session.commit()
@@ -163,7 +123,7 @@ def addevent():
                     flash('Only upload jpg, png or pdf files', 'danger')
                     return redirect(request.referrer)
                 elif file1_ext == '':
-                    flash('Please upload appropriate file to File/image 1', 'danger')
+                    flash('Please upload appropriate file to File/image', 'danger')
                     return redirect(request.referrer)
 
                 else:
@@ -181,9 +141,8 @@ def addevent():
 
 
             new_event = Events(user_id=user, name=name, location = location, startDate = startDate, 
-                endDate = endDate,description=description, created_by=current_user.username,
-                link=link, linktype=linktype, public=public,
-                file1_desc=file1_desc, file2_desc=file2_desc
+                description=description, created_by=current_user.username,
+                file1_id=file1_id
                 )
 
         user= User.query.get(current_user.id)

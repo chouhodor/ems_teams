@@ -76,15 +76,14 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="min-date" class="col-sm-4 control-label">Dates*</label>
+            <label for="min-date" class="col-sm-4 control-label">Date*</label>
             <div class="col-sm-8">
               <div class="input-group input-daterange" data-provide="datepicker">
                 <input id="min-date" name="eventupdate-start-date" type="text" class="form-control"
-                  data-date-format="dd/mm/yyyy" required>
+                  date-format="dd/mm/yyyy" required>
                 <div class="input-group-prepend input-group-append">
-                  <div class="input-group-text">to</div>
+                  <div class="input-group-text"><i class="far fa-calendar-alt"></i></div>
                 </div>
-                <input name="eventupdate-end-date" type="text" class="form-control" data-date-format="dd/mm/yyyy"required>
               </div>
             </div>
           </div>
@@ -95,9 +94,8 @@
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-4 control-label" for="eventupdate-description1">File/image 1<br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
+            <label class="col-sm-4 control-label" for="eventupdate-description1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
             <div class="col-sm-8">
-              <span><a id="eventupdate-file1_id" name="eventupdate-file1_id" href="link" target="blank">Text</a>&nbsp&nbsp<button id="file1_btn" type="button" class="btn btn-default">Update file</button></span>
               <div id="file1_input">
                 <input type="file" class="form-control-file" id="file1" name="file1">
               </div>
@@ -142,7 +140,7 @@
 <div class="row">
 {% for u in event_standby %}
 <div class="col-sm">
-  <div class="card" style="margin: 0.3em;width: fit-content;">
+  <div class="card" style="margin: 0.3em;width: 150px; height: 300px;">
     <div class="card-body">
       <h5 class="card-title">{{u.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">Location : {{ u.location }}</h6>
@@ -161,7 +159,7 @@
 </div>
 {% endfor %}
 <div class="col-sm">
-  <div class="card" style="margin: 0.3em;width: fit-content;">
+  <div class="card" style="margin: 0.3em;width: 150px; height: 300px;">
     <div class="card-body" style="text-align: centre; margin: auto">
       <i id="modaladd" class="far fa-calendar-plus fa-5x" data-toggle="modal" data-target="#eventupdate"></i>
     </div>
@@ -184,6 +182,11 @@
   $('#modaladd').on('click',function(){
     //your javacript
   }).css("cursor", "pointer");
+  $('#min-date').datepicker({
+    format: 'dd/mm/yyyy',
+    autoclose: 'true'
+});
 </script>
+
 
 {% endblock %}
