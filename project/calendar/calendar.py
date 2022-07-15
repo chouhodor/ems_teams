@@ -68,15 +68,25 @@ def addevent():
         return y
 
     id = request.form['eventupdate-index']
-    name = remove_breaks(request.form['eventupdate-name'])
-    location = remove_breaks(request.form['eventupdate-location'])
-    startDate = dateform(request.form['eventupdate-start-date'])
-    description = remove_breaks(request.form['eventupdate-description'])
+    program = remove_breaks(request.form['program'])
+    tarikh = dateform(request.form['tarikh'])
+    masa = remove_breaks(request.form['masa'])
+    tempat = remove_breaks(request.form['tempat'])
+    vvip = remove_breaks(request.form['vvip'])
+    ephysician = remove_breaks(request.form['ephysician'])
+    med_officer = remove_breaks(request.form['med_officer'])
+    med_assistant = remove_breaks(request.form['med_assistant'])
+    snurse = remove_breaks(request.form['snurse'])
+    driver = remove_breaks(request.form['driver'])
+    nota = remove_breaks(request.form['nota'])
     uploaded_file1 = request.files['file1']
 
     user = current_user.id
 
-    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
+    if uploaded_file1 == True:
+        filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
+    else:
+        filename1= ''
 
     if request.method == 'POST':
 
@@ -105,10 +115,19 @@ def addevent():
                     file1_id = None
 
 
-            update_events.name = name
-            update_events.location = location
-            update_events.startDate = startDate
-            update_events.description = description
+            update_events.program = program
+            update_events.tarikh = tarikh
+            update_events.masa = masa
+            update_events.tempat = tempat
+            update_events.vvip = vvip
+            update_events.ephysician = ephysician
+            update_events.med_officer = med_officer
+            update_events.med_assistant = med_assistant
+            update_events.snurse = snurse
+            update_events.driver = driver
+            update_events.nota = nota
+
+        
             
            
             db.session.commit()
@@ -116,11 +135,13 @@ def addevent():
 
         ########### data empty #################
         else:
-            if filename1 != '' and file1_desc != '':
+            if filename1 != '':
                 file1_ext = os.path.splitext(filename1)[1]
                 if file1_ext not in current_app.config['UPLOAD_EXTENSIONS']:
                     #abort(400)
                     flash('Only upload jpg, png or pdf files', 'danger')
+                    print('error1')
+                    print(filename1)
                     return redirect(request.referrer)
                 elif file1_ext == '':
                     flash('Please upload appropriate file to File/image', 'danger')
@@ -135,18 +156,17 @@ def addevent():
                     file1_id = filename1
 
             else:
-                file1_desc = None
                 file1_id = None
 
 
 
-            new_event = Events(user_id=user, name=name, location = location, startDate = startDate, 
-                description=description, created_by=current_user.username,
+            new_event = Events(user_id=user, program=program, tarikh=tarikh, masa=masa, tempat=tempat, vvip=vvip, ephysician = ephysician, 
+            med_officer=med_officer, med_assistant=med_assistant, snurse=snurse, driver=driver,
+                nota=nota, created_by=current_user.username,
                 file1_id=file1_id
                 )
 
         user= User.query.get(current_user.id)
-        user.bookmarks.append(new_event)
         db.session.add(new_event)
         db.session.commit()
 
@@ -159,7 +179,6 @@ def delete():
     delete_form = int(request.form['eventdelete-index'])
     delete_id = Events.query.get(delete_form)
     file1_path = delete_id.file1_id
-    file2_path = delete_id.file2_id
 
     if request.method == 'POST':
         db.session.delete(delete_id)

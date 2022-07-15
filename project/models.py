@@ -11,6 +11,7 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(100), unique=True)
   password = db.Column(db.String(100))
   username = db.Column(db.String(150))
+  role = db.Column(db.String(50))
   events = db.relationship('Events', backref = 'user', lazy='dynamic')
 
   def __repr__(self):
@@ -47,16 +48,29 @@ class OAuth(OAuthConsumerMixin, db.Model):
 class Events(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=True)
-    location = db.Column(db.String(100), nullable=True)
-    startDate = db.Column(db.Date)
-    ephysician = db.Column(db.String(100), nullable=True)
-    med_officer = db.Column(db.String(100), nullable=True)
-    med_assistant = db.Column(db.String(100), nullable=True)
-    snurse = db.Column(db.String(100), nullable=True)
-    driver = db.Column(db.String(100), nullable=True)
-    description = db.Column(db.String(2000), nullable=True)
+    program = db.Column(db.String(200), nullable=True)
+    tarikh = db.Column(db.Date)
+    masa = db.Column(db.String(200), nullable=True)
+    tempat = db.Column(db.String(200), nullable=True)
+    vvip = db.Column(db.String(200), nullable=True)
+    ephysician = db.Column(db.String(200), nullable=True)
+    med_officer = db.Column(db.String(200), nullable=True)
+    med_assistant = db.Column(db.String(200), nullable=True)
+    snurse = db.Column(db.String(200), nullable=True)
+    driver = db.Column(db.String(200), nullable=True)
+    nota = db.Column(db.String(2000), nullable=True)
     file1_id = db.Column(db.String(100), nullable=True)
+    status = db.Column(db.String(200), nullable=True)
     created_by = db.Column(db.String(100), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+
+class Logs(db.Model):
+  __tablename__ = 'logs'
+  id = db.Column(db.Integer, primary_key=True)
+  program_log = db.Column(db.String(200), nullable=True)
+  tarikh_log = db.Column(db.Date)
+  masa_log = db.Column(db.String(200), nullable=True)
+  event_change = db.Column(db.String(200), nullable=True)
+  changer = db.Column(db.String(100), nullable=True)
+  user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

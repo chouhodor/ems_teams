@@ -31,7 +31,7 @@ def login_post():
 
   #return redirect(url_for('calendar.index')) 
   #return redirect(request.referrer) 'calendar.my_events', username=current_user.username
-  return redirect(url_for('calendar.my_events', username=current_user.username)) 
+  return redirect(url_for('calendar.index', username=current_user.username)) 
 
 def send_email(user):
   token = user.get_reset_token()
