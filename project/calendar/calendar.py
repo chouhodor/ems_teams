@@ -86,10 +86,7 @@ def addevent():
 
     user = current_user.id
 
-    if uploaded_file1 == True:
-        filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
-    else:
-        filename1= ''
+    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
 
     if request.method == 'POST':
         if filename1 != '':
@@ -98,7 +95,6 @@ def addevent():
                 #abort(400)
                 flash('Only upload jpg, png or pdf files', 'danger')
                 print('error1')
-                print(filename1)
                 return redirect(request.referrer)
             elif file1_ext == '':
                 flash('Please upload appropriate file to File/image', 'danger')
@@ -117,11 +113,11 @@ def addevent():
 
 
 
-            new_event = Events(user_id=user, program=program, tarikh=tarikh, masa=masa, tempat=tempat, vvip=vvip, ephysician = ephysician, 
-            med_officer=med_officer, med_assistant=med_assistant, snurse=snurse, driver=driver,
-                nota=nota, created_by=current_user.username,
-                file1_id=file1_id
-                )
+        new_event = Events(user_id=user, program=program, tarikh=tarikh, masa=masa, tempat=tempat, vvip=vvip, ephysician = ephysician, 
+        med_officer=med_officer, med_assistant=med_assistant, snurse=snurse, driver=driver,
+            nota=nota, created_by=current_user.username,
+            file1_id=file1_id
+            )
 
         user= User.query.get(current_user.id)
         db.session.add(new_event)
@@ -195,7 +191,7 @@ def updateevent_admin():
            
         db.session.commit()
         return redirect(request.referrer)
-
+'''
 @calendar.route('/updateevent_manager', methods=['GET','POST'])
 @login_required
 def updateevent_manager():
@@ -211,10 +207,8 @@ def updateevent_manager():
 
     user = current_user.id
 
-    if uploaded_file1 == True:
-        filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
-    else:
-        filename1= ''
+
+    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
 
     if request.method == 'POST':
         update_events = Events.query.get(id)
@@ -254,8 +248,8 @@ def updateevent_manager():
         db.session.commit()
         return redirect(request.referrer)
 
-
-@calendar.route("/ephysician_form",methods=["POST","GET"])
+'''
+@calendar.route("/ephysician_form",methods=["POST"])
 def ephysician_form():
     if request.method == "POST":
         id = request.form['index_ephysician']
@@ -266,24 +260,62 @@ def ephysician_form():
 
     return redirect(request.referrer)
 
+@calendar.route("/med_officer_form",methods=["POST"])
+def med_officer_form():
+    if request.method == "POST":
+        id = request.form['index_med_officer']
+        med_officer = request.form.get("med_officer")
+        update_events = Events.query.get(id)
+        update_events.med_officer = med_officer
+        db.session.commit()     
 
-@calendar.route('/delete', methods = ['POST'])
-def delete():
+    return redirect(request.referrer)
 
-    delete_form = int(request.form['eventdelete-index'])
-    delete_id = Events.query.get(delete_form)
-    file1_path = delete_id.file1_id
+@calendar.route("/med_assistant_form",methods=["POST"])
+def med_assistant_form():
+    if request.method == "POST":
+        id = request.form['index_med_assistant']
+        med_assistant = request.form.get("med_assistant")
+        update_events = Events.query.get(id)
+        update_events.med_assistant = med_assistant
+        db.session.commit()     
+
+    return redirect(request.referrer)
+
+@calendar.route("/snurse_form",methods=["POST"])
+def snurse_form():
+    if request.method == "POST":
+        id = request.form['index_snurse']
+        snurse = request.form.get("snurse")
+        update_events = Events.query.get(id)
+        update_events.snurse = snurse
+        db.session.commit()     
+
+    return redirect(request.referrer)
+
+@calendar.route("/driver_form",methods=["POST"])
+def driver_form():
+    if request.method == "POST":
+        id = request.form['index_driver']
+        driver = request.form.get("driver")
+        update_events = Events.query.get(id)
+        update_events.driver = driver
+        db.session.commit()     
+
+    return redirect(request.referrer)
+
+@calendar.route('/padam_form', methods = ['POST'])
+def padam_form():
+
+    
+    padam_id = Events.query.get(int(request.form['padam-index']))
+    file1_path = padam_id.file1_id
 
     if request.method == 'POST':
-        db.session.delete(delete_id)
+        db.session.delete(padam_id)
         try:
             blob1 = bucket.blob(file1_path)
             blob1.delete()
-        except:
-            pass
-        try:
-            blob2 = bucket.blob(file2_path)
-            blob2.delete()
         except:
             pass
         db.session.commit()
