@@ -17,7 +17,7 @@
 <div class="row">
 {% for u in event_standby %}
 <div class="col ml-auto">
-  <div class="card mx-auto" style="margin: 0.1em;width: 320px;min-height: 470px;">
+  <div class="card mx-auto" style="margin: 0.3em;min-width: 320px;max-width: 400px; min-height: 470px;">
     <div class="card-body">
       <h6 class="card-title">{{u.program}}</h6>
       
@@ -53,8 +53,8 @@
 &nbsp;
 {% endfor %}
 {% if current_user.role == 'admin'%}
-<div class="col ml-auto">
-  <div class="card mx-auto" style="margin: auto 0.1em;width: 320px;min-height: 470px;">
+<!---<div class="col ml-auto">
+  <div class="card mx-auto" style="margin: auto 0.3em;min-width: 320px;max-width: 400px; min-height: 470px;">
     <div class="card-body " style="display: flex;
     justify-content: center;
     align-items: center;
@@ -63,7 +63,7 @@
       
     </div>
   </div>
-</div>
+</div>--->
 {% endif %}
 </div>
 <br>
