@@ -255,6 +255,18 @@ def updateevent_manager():
         return redirect(request.referrer)
 
 
+@calendar.route("/ephysician_form",methods=["POST","GET"])
+def ephysician_form():
+    if request.method == "POST":
+        id = request.form['index_ephysician']
+        ephysician = request.form.get("ephysician")
+        update_events = Events.query.get(id)
+        update_events.ephysician = ephysician
+        db.session.commit()     
+
+    return redirect(request.referrer)
+
+
 @calendar.route('/delete', methods = ['POST'])
 def delete():
 
@@ -276,6 +288,7 @@ def delete():
             pass
         db.session.commit()
         return redirect(request.referrer)
+ 
 
 '''
 @calendar.route('/test')
