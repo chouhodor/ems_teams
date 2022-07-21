@@ -7,7 +7,7 @@
   <aside class="col-md-6">
     <div class="card">
       <article class="card-body">
-        <h4 class="card-title mb-4 mt-1 text-center">Sign Up</h4>
+        <h4 class="card-title mb-4 mt-1 text-center">Pendaftaran</h4>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <div class="alert alert-warning">
@@ -21,18 +21,19 @@
         <form method="POST" action="/signup">
           <div class="form-group">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-              <input name="username" class="form-control" placeholder="Name" type="text" autofocus="" required>  
+              <input name="username" class="form-control" placeholder="Sila masukkan nama pengguna" type="text" autofocus="" required>  
           </div>
           <div class="form-group">
-              <input name="email" class="form-control" placeholder="user@user.com" type="email" autofocus="" required>
+              <input name="email" class="form-control" placeholder="Sila masukkan email" type="email" autofocus="" required>
           </div>
           <div class="form-group">
-              <input name="password" class="form-control" placeholder="Password" type="password" required>  
+              <input name="password" class="form-control" placeholder="Sila masukkan katalaluan" type="password" required>  
           </div>
           <div class="form-group">
-            <input name="passwordconfirm" class="form-control" placeholder="Confirm Password" type="password" required>  
+            <input name="passwordconfirm" class="form-control" placeholder="Kepastian katalaluan" type="password" required>  
         </div>
-          <button type="submit" class="btn btn-info btn-block">Sign Up</button>
+          <button type="submit" class="btn btn-info btn-block">DAFTAR</button>
+          <br>
           <a class="btn btn-primary btn-block" href="{{ url_for('auth.login') }}">Login</a>
         </form>
       </div>

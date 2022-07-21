@@ -9,7 +9,7 @@
 <div class="card" >
 
 <article class="card-body">
-	<a href="/signup" class="float-right btn btn-outline-success">Sign up</a>
+	<a href="/signup" class="float-right btn btn-outline-success">Pendaftaran</a>
 	<h4 class="card-title mb-4 mt-1 text-center">Login</h4>
   <hr>
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -29,10 +29,10 @@
     <form method="POST" action="/login">
       <div class="form-group">
         <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-        <input name="email" class="form-control" placeholder="user@user.com" type="email" autofocus="">
+        <input name="email" class="form-control" placeholder="Sila masukkan email" type="email" autofocus="">
       </div> 
       <div class="form-group">
-        <input name="password" class="form-control" placeholder="********" type="password">
+        <input name="password" class="form-control" placeholder="Sila masukkan katalaluan" type="password">
       </div> 
       <div class="row">
         <div class="col-md-6 text-left">

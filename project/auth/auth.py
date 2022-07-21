@@ -112,13 +112,15 @@ def signup_post():
     return redirect(url_for('auth.signup'))
   '''
   directory = 'project/static/uploads/%s' % username
-  if not os.path.isdir(directory):
+  if not os.path.isdir(directory):S
     os.makedirs(directory)
   '''
   new_user = User(username = username, email = email, password = generate_password_hash(password, method='sha256'))
 
   db.session.add(new_user)
   db.session.commit()
+
+  flash("Pendaftaran berjaya", 'success')
 
   return redirect(url_for('auth.login'))
 
