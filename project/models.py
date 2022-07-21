@@ -12,7 +12,7 @@ class User(UserMixin, db.Model):
   email = db.Column(db.String(100), unique=True)
   password = db.Column(db.String(100))
   username = db.Column(db.String(150))
-  role = db.Column(db.String(50), default='manager')
+  role = db.Column(db.String(50), default='viewer')
   events = db.relationship('Events', backref = 'user', lazy='dynamic')
 
   def __repr__(self):

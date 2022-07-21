@@ -32,6 +32,9 @@ def dateform(y):
     y = y.strftime("%Y-%m-%d")
     return y
 
+def insert_breaks(s):
+    return s.replace('<br>', '\n')
+
 @calendar.route('/')
 @login_required
 def index():
@@ -60,7 +63,8 @@ def index():
     splitter=splitter,
     nav_index = True,
     current_month=current_month,
-    user_role=user_role
+    user_role=user_role,
+    insert_breaks=insert_breaks
     )
 
 @calendar.route('/selesai')
@@ -117,7 +121,7 @@ def logs():
 
     return render_template('logs.html',
     username = username,
-    event_logs=event_logs,
+    event_logs=reversed(event_logs),
     date_times = date_times,
     splitter=splitter,
     nav_index = True,
@@ -178,13 +182,13 @@ def addevent():
 
 
 
-        new_event = Events(user_id=user, program=program, tarikh=tarikh, masa=masa, tempat=tempat, vvip=vvip, ephysician = ephysician, 
+        new_event = Events(user_id=user, program=program.upper(), tarikh=tarikh, masa=masa, tempat=tempat, vvip=vvip, ephysician = ephysician, 
         med_officer=med_officer, med_assistant=med_assistant, snurse=snurse, driver=driver,
             nota=nota, created_by=current_user.username,
             file1_id=file1_id
             )
         
-        new_log = Logs(program_log=program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, event_change='Program baru')
+        new_log = Logs(program_log=program.upper(), tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, event_change='Program baru')
         db.session.add(new_log)
 
         db.session.add(new_event)
@@ -213,35 +217,36 @@ def updateevent_admin():
     uploaded_file1 = request.files['file1']
 
     user = current_user.id
-
-    if uploaded_file1 == True:
+    '''
+    if uploaded_file1.filename != '':
         filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
     else:
-        filename1= ''
-
+        filename1 = ''
+    '''
     if request.method == 'POST':
         update_events = Events.query.get(id)
-        if update_events.file1_id == '':
-            if filename1 != '':
-                file1_ext = os.path.splitext(filename1)[1]
-                if file1_ext not in current_app.config['UPLOAD_EXTENSIONS']:
-                    flash('Only upload jpg, png or pdf files', 'danger')
-                    return redirect(request.referrer)
-                elif file1_ext == '':
-                    flash('Please upload appropriate file to File/image', 'danger')
-                    return redirect(request.referrer)
-                else:
-                    new_file1_id = filename1
-                    blob1 = bucket.blob(filename1)
-                    if os.path.splitext(filename1)[1] == '.pdf':
-                        blob1.upload_from_string(uploaded_file1.read(), content_type='application/pdf')
-                    else:
-                        blob1.upload_from_string(uploaded_file1.read())
-                    update_events.file1_id = new_file1_id
-
+        if uploaded_file1.filename != '':
+            filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1]) 
+            file1_ext = os.path.splitext(filename1)[1]
+            if file1_ext not in current_app.config['UPLOAD_EXTENSIONS']:
+                flash('Only upload jpg, png or pdf files', 'danger')
+                print('error1')
+                return redirect(request.referrer)
+            elif file1_ext == '':
+                flash('Please upload appropriate file to File/image', 'danger')
+                print('error2')
+                return redirect(request.referrer)
             else:
-                file1_id = None
+                new_file1_id = filename1
+                blob1 = bucket.blob(filename1)
+                if os.path.splitext(filename1)[1] == '.pdf':
+                    blob1.upload_from_string(uploaded_file1.read(), content_type='application/pdf')
+                else:
+                    blob1.upload_from_string(uploaded_file1.read())
+                update_events.file1_id = new_file1_id
 
+        else:
+            pass
 
         update_events.program = program
         update_events.tarikh = tarikh
@@ -255,7 +260,7 @@ def updateevent_admin():
         update_events.driver = driver
         update_events.nota = nota
 
-        new_log = Logs(program_log=program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
+        new_log = Logs(program_log=program.upper(), tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
                         event_change='Program dikemaskini oleh admin')
         db.session.add(new_log)
            

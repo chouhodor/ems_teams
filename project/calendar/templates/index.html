@@ -24,7 +24,7 @@
       <h6 class="card-subtitle mb-2 text-muted">Tarikh : {{ u.tarikh.strftime("%d/%m/%Y") }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">Masa : {{ u.masa }}</h6>
       <h6 class="card-subtitle mb-2 text-muted">Tempat : {{ u.tempat }}</h6>
-      <h6 class="card-subtitle mb-2 text-muted">VVIP : {{ u.vvip }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">VVIP : {{ u.vvip | safe}}</h6>
       <p class="card-text">EP : {{ u.ephysician }}
         <br>MO : {{ u.med_officer }}
         <br>PPP : {{ u.med_assistant }}
@@ -41,10 +41,12 @@
           target="blank">Surat program</a></p>
         {% endif %}
         <div style="position: absolute; bottom: 10px;">
-        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update{{u.id}}">Kemaskini</button>&nbsp;
         {% if current_user.role == 'admin'%}
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update{{u.id}}">Kemaskini</button>&nbsp;
         <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal">Selesai</button>&nbsp;
         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#padam{{u.id}}">Padam</button>
+        {% elif current_user.role == 'manager' %}
+        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update{{u.id}}">Kemaskini</button>
         {% endif %}
       </div>
     </div>
@@ -96,7 +98,7 @@
             {% endif %}
         {% endwith %}
       </div>
-        <form action="/addevent" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/addevent" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="eventupdate-index">
           <div class="form-group row">
@@ -132,7 +134,7 @@
           <div class="form-group row">
             <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
             <div class="col-sm-8">
-              <input id="vvip" name="vvip" type="text" class="form-control" required>
+              <textarea id="vvip" name="vvip" type="text" class="form-control" rows="4" required></textarea>
             </div>
           </div>
           <div class="form-group row">
@@ -144,25 +146,25 @@
           <div class="form-group row">
             <label for="med_officer" class="col-sm-4 control-label">MO</label>
             <div class="col-sm-8">
-              <input id="med_officer" name="med_officer" type="text" class="form-control" required>
+              <input id="med_officer" name="med_officer" type="text" class="form-control" >
             </div>
           </div>
           <div class="form-group row">
             <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
             <div class="col-sm-8">
-              <input id="med_assistant" name="med_assistant" type="text" class="form-control" required>
+              <input id="med_assistant" name="med_assistant" type="text" class="form-control" >
             </div>
           </div>
           <div class="form-group row">
             <label for="snurse" class="col-sm-4 control-label">SN</label>
             <div class="col-sm-8">
-              <input id="snurse" name="snurse" type="text" class="form-control" required>
+              <input id="snurse" name="snurse" type="text" class="form-control" >
             </div>
           </div>
           <div class="form-group row">
             <label for="driver" class="col-sm-4 control-label">PKB</label>
             <div class="col-sm-8">
-              <input id="driver" name="driver" type="text" class="form-control" required>
+              <input id="driver" name="driver" type="text" class="form-control" >
             </div>
           </div>
 
@@ -219,7 +221,7 @@
             {% endif %}
         {% endwith %}
       </div>
-        <form action="/updateevent_admin" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/updateevent_admin" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="eventupdate-index" value="{{i.id}}">
           <div class="form-group row">
@@ -255,7 +257,7 @@
           <div class="form-group row">
             <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
             <div class="col-sm-8">
-              <input id="vvip" name="vvip" type="text" class="form-control" value="{{i.vvip}}" required>
+              <textarea id="vvip" name="vvip" type="text" class="form-control" rows="4" required>{{insert_breaks(i.vvip)}}</textarea>
             </div>
           </div>
           <div class="form-group row">
@@ -292,7 +294,7 @@
           <div class="form-group row">
             <label for="nota" class="col-sm-4 control-label">Nota</label>
             <div class="col-sm-8">
-            <textarea type="text" class="form-control" name="nota" id="nota" rows="3" placeholder="please remove icons and emoji" value="{{i.nota}}"></textarea>
+            <textarea type="text" class="form-control" name="nota" id="nota" rows="3">{{insert_breaks(i.nota)}}</textarea>
             </div>
           </div>
           <div class="form-group row">
@@ -428,10 +430,10 @@
           <div class="form-group row">
             <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
             <div class="col-sm-8">
-              <h6 id="vvip" name="vvip">{{i.vvip}}</h6>
+              <h6 id="vvip" name="vvip">{{i.vvip|safe}}</h6>
             </div>
           </div>
-          <form action="/ephysician_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+          <form action="/ephysician_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
             <label for="ephysician" class="col-sm-4 control-label">EP</label>
             <div class="col-sm-6">
@@ -444,7 +446,7 @@
             </div>
           </div>
         </form>
-        <form action="/med_officer_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/med_officer_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
             <label for="med_officer" class="col-sm-4 control-label">MO</label>
             <div class="col-sm-6">
@@ -457,7 +459,7 @@
             </div>
           </div>
         </form>
-        <form action="/med_assistant_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/med_assistant_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
             <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
             <div class="col-sm-6">
@@ -470,7 +472,7 @@
             </div>
           </div>
         </form>
-        <form action="/snurse_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/snurse_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
             <label for="snurse" class="col-sm-4 control-label">SN</label>
             <div class="col-sm-6">
@@ -483,7 +485,7 @@
             </div>
           </div>
         </form>
-        <form action="/driver_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="on">
+        <form action="/driver_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
             <label for="driver" class="col-sm-4 control-label">PKB</label>
             <div class="col-sm-6">
@@ -499,7 +501,7 @@
           <div class="form-group row">
             <label for="nota" class="col-sm-4 control-label">Nota</label>
             <div class="col-sm-8">
-            <textarea type="text" class="form-control" name="nota" id="nota" rows="3" placeholder="please remove icons and emoji" value="{{i.nota}}"></textarea>
+            <textarea type="text" class="form-control" name="nota" id="nota" rows="3" value="{{i.nota|safe}}" disabled></textarea>
             </div>
           </div>
           <div class="form-group row" id="files" name="files">
