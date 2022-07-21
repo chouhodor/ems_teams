@@ -33,10 +33,10 @@
           <a class="nav-link {% if nav_index %}active{% endif %}" href="{{ url_for('calendar.index') }}">Program Aktif</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Program Selesai</a>
+          <a class="nav-link" href="{{ url_for('calendar.selesai') }}">Program Selesai</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Log Perubahan</a>
+          <a class="nav-link" href="{{ url_for('calendar.logs') }}">Log Perubahan</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#eventadd">Tambah Program <i class="far fa-calendar-plus fa-lg"></i></a>

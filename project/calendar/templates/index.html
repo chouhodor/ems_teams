@@ -308,13 +308,13 @@
                 <input type="file" class="form-control-file" id="file1" name="file1">
               </div>
             </div>
-          </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+              <input type="submit" class="btn btn-primary" id="save-event" value="Save"></input>
+              </form>
+            </div>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <input type="submit" class="btn btn-primary" id="save-event" value="Save"></input>
-        </form>
-      </div>
+
     </div>
   </div>
 </div>
@@ -339,6 +339,31 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <input type="submit" class="btn btn-danger" value="PADAM"></input>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="selesai{{i.id}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Selesai program</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="text-align: center;">
+        <form action="/selesai_form" method="POST">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+          <input type="hidden" name="selesai-index" value="{{i.id}}">
+              Adakah program berkenaan SELESAI?
+              <p id="selesai-program" name="selesai-program" style="font-weight: bold;">{{i.program}}</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <input type="submit" class="btn btn-success" value="Selesai"></input>
       </div>
     </form>
     </div>

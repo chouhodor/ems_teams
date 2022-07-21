@@ -2,6 +2,7 @@ import os
 from . import db
 from flask_login import UserMixin
 from flask_dance.consumer.storage.sqla import OAuthConsumerMixin
+from datetime import date, datetime, timedelta
 import jwt
 from time import time
 
@@ -60,7 +61,7 @@ class Events(db.Model):
     driver = db.Column(db.String(200), nullable=True)
     nota = db.Column(db.String(2000), nullable=True)
     file1_id = db.Column(db.String(100), nullable=True)
-    status = db.Column(db.String(200), nullable=True)
+    status = db.Column(db.String(200), default='aktif', nullable=True)
     created_by = db.Column(db.String(100), nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
@@ -68,8 +69,7 @@ class Logs(db.Model):
   __tablename__ = 'logs'
   id = db.Column(db.Integer, primary_key=True)
   program_log = db.Column(db.String(200), nullable=True)
-  tarikh_log = db.Column(db.Date)
-  masa_log = db.Column(db.String(200), nullable=True)
+  tarikhmasa_log = db.Column(db.DateTime, default=datetime.utcnow)
   event_change = db.Column(db.String(200), nullable=True)
   changer = db.Column(db.String(100), nullable=True)
   user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
