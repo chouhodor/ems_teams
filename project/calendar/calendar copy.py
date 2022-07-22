@@ -36,7 +36,6 @@ def insert_breaks(s):
     return s.replace('<br>', '\n')
 
 @calendar.route('/')
-@login_required
 def index():
     date_times = datetime.now().strftime("%d/%m/%Y")
     current_month = str(datetime.now().month -1)
@@ -55,17 +54,20 @@ def index():
     except:
       username = None
 
-    return render_template('index.html',
-    username = username,
-    event_standby=event_standby,
-    date_times = date_times,
-    splitter=splitter,
-    nav_index = True,
-    current_month=current_month,
-    user_role=user_role,
-    insert_breaks=insert_breaks,
-    remember=True
-    )
+    if current_user.is_authenticated:
+        return render_template('index.html',
+        username = username,
+        event_standby=event_standby,
+        date_times = date_times,
+        splitter=splitter,
+        nav_index = True,
+        current_month=current_month,
+        user_role=user_role,
+        insert_breaks=insert_breaks,
+        remember=True
+        )
+    else:
+        return redirect(url_for('auth.login'))
 
 @calendar.route('/selesai')
 @login_required
