@@ -43,7 +43,7 @@
         <div style="position: absolute; bottom: 10px;">
         {% if current_user.role == 'admin'%}
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update{{u.id}}">Kemaskini</button>&nbsp;
-        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal">Selesai</button>&nbsp;
+        <button class="btn btn-success btn-sm" data-toggle="modal" data-target="#selesai{{u.id}}">Selesai</button>&nbsp;
         <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#padam{{u.id}}">Padam</button>
         {% elif current_user.role == 'manager' %}
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#update{{u.id}}">Kemaskini</button>
@@ -346,6 +346,8 @@
     </div>
   </div>
 </div>
+
+<!-------    MODAL SELESAI ------->
 
 <div class="modal fade" id="selesai{{i.id}}">
   <div class="modal-dialog">

@@ -407,11 +407,9 @@ def driver_form():
 
 @calendar.route('/padam_form', methods = ['POST'])
 def padam_form():
-
     
     padam_id = Events.query.get(int(request.form['padam-index']))
     file1_path = padam_id.file1_id
-    update_events = Events.query.get(padam_id)
     user = current_user.id
 
     if request.method == 'POST':
@@ -422,7 +420,7 @@ def padam_form():
         except:
             pass
 
-        new_log = Logs(program_log=update_events.program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
+        new_log = Logs(program_log=padam_id.program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
                         event_change='Program dipadam')
         db.session.add(new_log)
         db.session.commit()
@@ -433,14 +431,11 @@ def selesai_form():
     selesai_id = Events.query.get(int(request.form['selesai-index']))
 
     if request.method == 'POST':
-        update_events = Events.query.get(selesai_id)
-        update_events.status = 'selesai'
+        selesai_id.status = 'selesai'
         user = current_user.id
-
-        new_log = Logs(program_log=update_events.program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
-                        event_change='Status program: Selesai')
+        new_log = Logs(program_log=selesai_id.program, tarikhmasa_log = datetime.now().strftime('%Y-%m-%d %H:%M:%S'), changer=current_user.username, user_id=user, 
+                event_change='Status program: Selesai')
         db.session.add(new_log)
-
         db.session.commit()
         return redirect(request.referrer)
  
