@@ -38,9 +38,11 @@
         <li class="nav-item">
           <a class="nav-link" href="{{ url_for('calendar.logs') }}">Log Perubahan</a>
         </li>
+        {% if current_user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="#" data-toggle="modal" data-target="#eventadd">Tambah Program <i class="far fa-calendar-plus fa-lg"></i></a>
         </li>
+        {% endif %}
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <span>
