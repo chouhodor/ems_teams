@@ -6,7 +6,7 @@ from prompt_toolkit import HTML
 from werkzeug.utils import redirect 
 from flask_login import login_required, current_user
 from datetime import date, datetime, timedelta
-from ..models import Logs, User, OAuth, Events
+from ..models import Etdstaff, Logs, User, OAuth, Events
 from .. import db 
 from werkzeug.utils import secure_filename
 from google.cloud import storage
@@ -64,7 +64,8 @@ def index():
     current_month=current_month,
     user_role=user_role,
     insert_breaks=insert_breaks,
-    remember=True
+    remember=True,
+    pakar_etd = Etdstaff.query.all()
     )
 
 @calendar.route('/selesai')
