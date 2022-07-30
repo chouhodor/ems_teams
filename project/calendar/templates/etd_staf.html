@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block nav %}{% endblock %}
+{% block head %}
+{{super()}}
+<head>
+  <style>
+  </style>
+</head>
+
+{% endblock %}
+{% block content %}
+<div class="container" style="padding-top: 10px;">
+<h2 style="text-align: center;">EMS Medical Standby </h2>
+<br>
+<!-- <div id="calendar" style="padding: 10px;"></div>--->
+<div class="container">
+
+
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+      <form name="ppsForm" id="ppsForm" method="POST" action="/staf_register">
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls">
+            <input type="hidden" class="form-control" value="sufian" name="ep_name" id="ep_name">
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="form-group floating-label-form-group controls">
+            <label>Tambah nama staf</label>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <input type="text" class="form-control" placeholder="Masukkan nama penuh" name="nama_staf" id="nama_staf "
+              autocomplete="off" maxlength="500" required>
+            <p class="help-block text-danger"></p>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="form-group col-xs-12 floating-label-form-group controls">
+            <select class="form-control" id="jawatan_staf" name="jawatan_staf" tabindex="-1" required>
+              <option value="" hidden disable selected>Pilih jawatan</option>
+              <option value="pakar" >EP</option>
+              <option value="mofficer" >MO</option>
+              <option value="massist" >PPP</option>
+              <option value="snurse" >SN</option>
+              <option value="driver" >PKB</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <div class="control-group">
+          <div class="form-group">
+            <button type="submit" class="btn btn-secondary" id="submit" onclick="loading();">Tambah<span
+                class="spinner-border spinner-border-sm" role="status" aria-hidden="true"
+                id="loading"></span></button>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          {% for category, message in messages %}
+          <div class="alert alert-{{ category }}" role="alert">
+            {{ message }}
+          </div>
+          {% endfor %}
+          {% endif %}
+          {% endwith %}
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container">
+  <h4>Senarai staf ETD HTAA</h4>
+  <table class="table table-sm" >
+    <thead>
+      <tr>
+        <th>Nama</th>
+        <th>Jawatan</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in staf_list %}
+      <tr>
+        <td>{{ s.name }}</td>
+        <td>
+          {% if s.jawatan == 'pakar' %}
+          EP
+          {% elif s.jawatan == 'mofficer' %}
+          MO
+          {% elif s.jawatan == 'massist' %}
+          PPP
+          {% elif s.jawatan == 'snurse' %}
+          SN
+          {% elif s.jawatan == 'driver' %}
+          PKB
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
+{% block scripts%}
+{{ super() }}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js'></script>
+<script src='../static/js/bootstrap-datepicker.min.js'></script>
+<script>
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    return new bootstrap.Popover(popoverTriggerEl)
+  })
+  var popover = new bootstrap.Popover(document.querySelector('.popover-dismiss'), {
+    trigger: 'focus'
+  })
+</script>
+<script>
+  $(document).ready(function () {
+    $("#loading").hide();
+  });
+</script>
+<script type="text/javascript">// <![CDATA[
+  function loading() {
+    $("#loading").show();
+  }
+// ]]></script>
+
+
+{% endblock %}

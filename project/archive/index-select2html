@@ -103,14 +103,14 @@
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="eventupdate-index">
           <div class="form-group row">
-            <label for="program" class="col-sm-2 control-label">Program*</label>
-            <div class="col-sm-10">
+            <label for="program" class="col-sm-4 control-label">Program*</label>
+            <div class="col-sm-8">
               <input id="program" name="program" type="text" class="form-control" maxlength="100" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tarikh" class="col-sm-2 control-label">Tarikh*</label>
-            <div class="col-sm-10">
+            <label for="tarikh" class="col-sm-4 control-label">Tarikh*</label>
+            <div class="col-sm-8">
               <div class="input-group input-daterange" data-provide="datepicker">
                 <input id="tarikh" name="tarikh" type="text" class="form-control"
                   date-format="dd/mm/yyyy" required>
@@ -121,28 +121,28 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="masa" class="col-sm-2 control-label">Masa*</label>
-            <div class="col-sm-10">
+            <label for="masa" class="col-sm-4 control-label">Masa*</label>
+            <div class="col-sm-8">
               <input id="masa" name="masa" type="text" class="form-control" maxlength="10" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tempat" class="col-sm-2 control-label">Tempat*</label>
-            <div class="col-sm-10">
+            <label for="tempat" class="col-sm-4 control-label">Tempat*</label>
+            <div class="col-sm-8">
               <input id="tempat" name="tempat" type="text" class="form-control" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="vvip" class="col-sm-2 control-label">VVIP*</label>
-            <div class="col-sm-10">
+            <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
+            <div class="col-sm-8">
               <textarea id="vvip" name="vvip" type="text" class="form-control" rows="4" required></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label for="ephysician" class="col-sm-2 control-label">EP</label>
-            <div class="col-sm-10">
+            <label for="ephysician" class="col-sm-4 control-label">EP</label>
+            <div class="col-sm-8">
               <!--<input id="ephysician" name="ephysician" type="text" class="form-control">-->
-              <select class="form-control" id="ephysician" name="ephysician" tabindex="-1">
+              <select class="form-control" id="ephysician" name="ephysician" tabindex="-1" data-select2-id="admin_add1">
                 <option value="" selected>-</option>
                 {% for p in pakar_etd %}
                 <option>{{p.name}}</option>
@@ -151,10 +151,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_officer" class="col-sm-2 control-label">MO</label>
-            <div class="col-sm-10">
+            <label for="med_officer" class="col-sm-4 control-label">MO</label>
+            <div class="col-sm-8">
               <!--<input id="med_officer" name="med_officer" type="text" class="form-control" >-->
-              <select class="form-control" id="med_officer" name="med_officer" tabindex="-1">
+              <select class="form-control" id="med_officer" name="med_officer" tabindex="-1" data-select2-id="admin_add2">
                 <option value="" selected>-</option>
                 {% for p in mofficer_etd %}
                 <option>{{p.name}}</option>
@@ -163,10 +163,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_assistant" class="col-sm-2 control-label">PPP</label>
-            <div class="col-sm-10">
+            <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
+            <div class="col-sm-8">
               <!--<input id="med_assistant" name="med_assistant" type="text" class="form-control" >-->
-              <select class="form-control" id="med_assistant" name="med_assistant" tabindex="-1">
+              <select class="form-control" id="med_assistant" name="med_assistant" tabindex="-1" data-select2-id="admin_add3">
                 <option value="" selected>-</option>
                 {% for p in massist_etd %}
                 <option>{{p.name}}</option>
@@ -175,10 +175,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="snurse" class="col-sm-2 control-label">SN</label>
-            <div class="col-sm-10">
+            <label for="snurse" class="col-sm-4 control-label">SN</label>
+            <div class="col-sm-8">
               <!--<input id="snurse" name="snurse" type="text" class="form-control" >-->
-              <select class="form-control" id="snurse" name="snurse" tabindex="-1">
+              <select class="form-control" id="snurse" name="snurse" tabindex="-1" data-select2-id="admin_add4">
                 <option value="" selected>-</option>
                 {% for p in snurse_etd %}
                 <option>{{p.name}}</option>
@@ -187,10 +187,10 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="driver" class="col-sm-2 control-label">PKB</label>
-            <div class="col-sm-10">
+            <label for="driver" class="col-sm-4 control-label">PKB</label>
+            <div class="col-sm-8">
               <!--<input id="driver" name="driver" type="text" class="form-control" >-->
-              <select class="form-control" id="driver" name="driver" tabindex="-1">
+              <select class="form-control" id="driver" name="driver" tabindex="-1" data-select2-id="admin_add5">
                 <option value="" selected>-</option>
                 {% for p in driver_etd %}
                 <option>{{p.name}}</option>
@@ -200,14 +200,14 @@
           </div>
 
           <div class="form-group row">
-            <label for="nota" class="col-sm-2 control-label">Nota</label>
-            <div class="col-sm-10">
+            <label for="nota" class="col-sm-4 control-label">Nota</label>
+            <div class="col-sm-8">
             <textarea type="text" class="form-control" name="nota" id="nota" rows="3" placeholder="please remove icons and emoji"></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 control-label" for="description1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
-            <div class="col-sm-10">
+            <label class="col-sm-4 control-label" for="description1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
+            <div class="col-sm-8">
               <div id="file1_input">
                 <input type="file" class="form-control-file" id="file1" name="file1">
               </div>
@@ -256,14 +256,14 @@
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="eventupdate-index" value="{{i.id}}">
           <div class="form-group row">
-            <label for="program" class="col-sm-2 control-label">Program*</label>
-            <div class="col-sm-10">
+            <label for="program" class="col-sm-4 control-label">Program*</label>
+            <div class="col-sm-8">
               <input id="program" name="program" type="text" class="form-control" maxlength="100" value="{{i.program}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tarikh" class="col-sm-2 control-label">Tarikh*</label>
-            <div class="col-sm-10">
+            <label for="tarikh" class="col-sm-4 control-label">Tarikh*</label>
+            <div class="col-sm-8">
               <div class="input-group input-daterange" data-provide="datepicker">
                 <input id="tarikh2" name="tarikh" type="text" class="form-control"
                   date-format="dd/mm/yyyy" value="{{i.tarikh.strftime("%d/%m/%Y")}}" required>
@@ -274,29 +274,29 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="masa" class="col-sm-2 control-label">Masa*</label>
-            <div class="col-sm-10">
+            <label for="masa" class="col-sm-4 control-label">Masa*</label>
+            <div class="col-sm-8">
               <input id="masa" name="masa" type="text" class="form-control" maxlength="10" value="{{i.masa}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tempat" class="col-sm-2 control-label">Tempat*</label>
-            <div class="col-sm-10">
+            <label for="tempat" class="col-sm-4 control-label">Tempat*</label>
+            <div class="col-sm-8">
               <input id="tempat" name="tempat" type="text" class="form-control" value="{{i.tempat}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="vvip" class="col-sm-2 control-label">VVIP*</label>
-            <div class="col-sm-10">
+            <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
+            <div class="col-sm-8">
               <textarea id="vvip" name="vvip" type="text" class="form-control" rows="4" required>{{insert_breaks(i.vvip)}}</textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label for="ephysician" class="col-sm-2 control-label">EP</label>
-            <div class="col-sm-10">
+            <label for="ephysician" class="col-sm-4 control-label">EP</label>
+            <div class="col-sm-8">
               <!--<input id="ephysician" name="ephysician" type="text" class="form-control" value="{{i.ephysician}}">-->
-              <select class="form-control" id="ephysician" name="ephysician" tabindex="-1">
-                <option selected>{{i.ephysician}}</option>
+              <select class="form-control" id="ephysician1" name="ephysician" tabindex="-1" data-select2-id="admin_update1">
+                <option value="" selected>-</option>
                 {% for p in pakar_etd %}
                 <option>{{p.name}}</option>
                 {% endfor %}
@@ -304,63 +304,39 @@
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_officer" class="col-sm-2 control-label">MO</label>
-            <div class="col-sm-10">
-              <!--<input id="med_officer" name="med_officer" type="text" class="form-control" value="{{i.med_officer}}" required>-->
-              <select class="form-control" id="med_officer" name="med_officer" tabindex="-1">
-                <option selected>{{i.med_officer}}</option>
-                {% for p in mofficer_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+            <label for="med_officer" class="col-sm-4 control-label">MO</label>
+            <div class="col-sm-8">
+              <input id="med_officer" name="med_officer" type="text" class="form-control" value="{{i.med_officer}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_assistant" class="col-sm-2 control-label">PPP</label>
-            <div class="col-sm-10">
-              <!--<input id="med_assistant" name="med_assistant" type="text" class="form-control" value="{{i.med_assistant}}" required>-->
-              <select class="form-control" id="med_assistant" name="med_assistant" tabindex="-1">
-                <option selected>{{i.med_assistant}}</option>
-                {% for p in massist_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+            <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
+            <div class="col-sm-8">
+              <input id="med_assistant" name="med_assistant" type="text" class="form-control" value="{{i.med_assistant}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="snurse" class="col-sm-2 control-label">SN</label>
-            <div class="col-sm-10">
-              <!--<input id="snurse" name="snurse" type="text" class="form-control" value="{{i.snurse}}" required>-->
-              <select class="form-control" id="snurse" name="snurse" tabindex="-1">
-                <option selected>{{i.snurse}}</option>
-                {% for p in snurse_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+            <label for="snurse" class="col-sm-4 control-label">SN</label>
+            <div class="col-sm-8">
+              <input id="snurse" name="snurse" type="text" class="form-control" value="{{i.snurse}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="driver" class="col-sm-2 control-label">PKB</label>
-            <div class="col-sm-10">
-              <!--<input id="driver" name="driver" type="text" class="form-control" value="{{i.driver}}" required>-->
-              <select class="form-control" id="driver" name="driver" tabindex="-1">
-                <option selected>{{i.driver}}</option>
-                {% for p in driver_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+            <label for="driver" class="col-sm-4 control-label">PKB</label>
+            <div class="col-sm-8">
+              <input id="driver" name="driver" type="text" class="form-control" value="{{i.driver}}" required>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="nota" class="col-sm-2 control-label">Nota</label>
-            <div class="col-sm-10">
+            <label for="nota" class="col-sm-4 control-label">Nota</label>
+            <div class="col-sm-8">
             <textarea type="text" class="form-control" name="nota" id="nota" rows="3">{{insert_breaks(i.nota)}}</textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 control-label" for="file1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
-            <div class="col-sm-10">
+            <label class="col-sm-4 control-label" for="file1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
+            <div class="col-sm-8">
               {% if i.file1_id == None %}
 
               {% else %}
@@ -467,47 +443,42 @@
       </div>
         
          <div class="form-group row">
-            <label for="program" class="col-sm-2 control-label">Program*</label>
-            <div class="col-sm-10">
+            <label for="program" class="col-sm-4 control-label">Program*</label>
+            <div class="col-sm-8">
               <h5 id="program" name="program">{{i.program}}</h5>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tarikh" class="col-sm-2 control-label">Tarikh*</label>
-            <div class="col-sm-10">
+            <label for="tarikh" class="col-sm-4 control-label">Tarikh*</label>
+            <div class="col-sm-8">
               <h6 id="tarikh" name="tarikh">{{i.tarikh.strftime("%d/%m/%Y")}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="masa" class="col-sm-2 control-label">Masa*</label>
-            <div class="col-sm-10">
+            <label for="masa" class="col-sm-4 control-label">Masa*</label>
+            <div class="col-sm-8">
               <h6 id="masa" name="masa">{{i.masa}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tempat" class="col-sm-2 control-label">Tempat*</label>
-            <div class="col-sm-10">
+            <label for="tempat" class="col-sm-4 control-label">Tempat*</label>
+            <div class="col-sm-8">
               <h6 id="tempat" name="tempat">{{i.tempat}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="vvip" class="col-sm-2 control-label">VVIP*</label>
-            <div class="col-sm-10">
+            <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
+            <div class="col-sm-8">
               <h6 id="vvip" name="vvip">{{i.vvip|safe}}</h6>
             </div>
           </div>
           <form action="/ephysician_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
-            <label for="ephysician" class="col-sm-2 control-label">EP</label>
-            <div class="col-sm-8">
+            <label for="ephysician" class="col-sm-4 control-label">EP</label>
+            <div class="col-sm-6">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="index_ephysician" value="{{i.id}}">
-              <select class="form-control" id="ephysician" name="ephysician" tabindex="-1">
-                <option selected>{{i.ephysician}}</option>
-                {% for p in pakar_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+              <input id="ephysician" name="ephysician" type="text" class="form-control" value="{{i.ephysician}}">
               </div>
               <div class="col-sm">
               <button type="submit" class="btn btn-success"><i class="far fa-save"></i></button>
@@ -516,16 +487,11 @@
         </form>
         <form action="/med_officer_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
-            <label for="med_officer" class="col-sm-2 control-label">MO</label>
-            <div class="col-sm-8">
+            <label for="med_officer" class="col-sm-4 control-label">MO</label>
+            <div class="col-sm-6">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="index_med_officer" value="{{i.id}}">
-              <select class="form-control" id="med_officer" name="med_officer" tabindex="-1">
-                <option selected>{{i.med_officer}}</option>
-                {% for p in mofficer_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+              <input id="med_officer" name="med_officer" type="text" class="form-control" value="{{i.med_officer}}">
               </div>
               <div class="col-sm">
               <button type="submit" class="btn btn-success"><i class="far fa-save"></i></button>
@@ -534,16 +500,11 @@
         </form>
         <form action="/med_assistant_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
-            <label for="med_assistant" class="col-sm-2 control-label">PPP</label>
-            <div class="col-sm-8">
+            <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
+            <div class="col-sm-6">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="index_med_assistant" value="{{i.id}}">
-              <select class="form-control" id="med_assistant" name="med_assistant" tabindex="-1">
-                <option selected>{{i.med_assistant}}</option>
-                {% for p in massist_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+              <input id="med_assistant" name="med_assistant" type="text" class="form-control" value="{{i.med_assistant}}">
               </div>
               <div class="col-sm">
               <button type="submit" class="btn btn-success"><i class="far fa-save"></i></button>
@@ -552,16 +513,11 @@
         </form>
         <form action="/snurse_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
-            <label for="snurse" class="col-sm-2 control-label">SN</label>
-            <div class="col-sm-8">
+            <label for="snurse" class="col-sm-4 control-label">SN</label>
+            <div class="col-sm-6">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="index_snurse" value="{{i.id}}">
-              <select class="form-control" id="snurse" name="snurse" tabindex="-1">
-                <option selected>{{i.snurse}}</option>
-                {% for p in snurse_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+              <input id="snurse" name="snurse" type="text" class="form-control" value="{{i.snurse}}">
               </div>
               <div class="col-sm">
               <button type="submit" class="btn btn-success"><i class="far fa-save"></i></button>
@@ -570,16 +526,11 @@
         </form>
         <form action="/driver_form" method="POST" class="form-horizontal" enctype="multipart/form-data" autocomplete="off">
           <div class="form-group row">
-            <label for="driver" class="col-sm-2 control-label">PKB</label>
-            <div class="col-sm-8">
+            <label for="driver" class="col-sm-4 control-label">PKB</label>
+            <div class="col-sm-6">
               <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
               <input type="hidden" name="index_driver" value="{{i.id}}">
-              <select class="form-control" id="driver" name="driver" tabindex="-1">
-                <option selected>{{i.driver}}</option>
-                {% for p in driver_etd %}
-                <option>{{p.name}}</option>
-                {% endfor %}
-              </select>
+              <input id="driver" name="driver" type="text" class="form-control" value="{{i.driver}}">
               </div>
               <div class="col-sm">
               <button type="submit" class="btn btn-success"><i class="far fa-save"></i></button>
@@ -587,15 +538,15 @@
           </div>
         </form>
           <div class="form-group row">
-            <label for="nota" class="col-sm-2 control-label">Nota</label>
-            <div class="col-sm-10">
+            <label for="nota" class="col-sm-4 control-label">Nota</label>
+            <div class="col-sm-8">
             <textarea type="text" class="form-control" name="nota" id="nota" rows="3" value="{{i.nota|safe}}" disabled></textarea>
             </div>
           </div>
           <div class="form-group row" id="files" name="files">
-            <label class="col-sm-2 control-label" for="eventdetail-description2">Files</label>
+            <label class="col-sm-4 control-label" for="eventdetail-description2">Files</label>
           <div class="form-group" id="filediv1" name="filediv1">
-            <div class="col-sm-10">
+            <div class="col-sm-8">
               {% if i.file1_id == None %}
 
               {% else %}
@@ -648,75 +599,75 @@
           <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
           <input type="hidden" name="eventupdate-index" value="{{i.id}}">
          <div class="form-group row">
-            <label for="program" class="col-sm-2 control-label">Program*</label>
-            <div class="col-sm-10">
+            <label for="program" class="col-sm-4 control-label">Program*</label>
+            <div class="col-sm-8">
               <h5 id="program" name="program">{{i.program}}</h5>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tarikh" class="col-sm-2 control-label">Tarikh*</label>
-            <div class="col-sm-10">
+            <label for="tarikh" class="col-sm-4 control-label">Tarikh*</label>
+            <div class="col-sm-8">
               <h6 id="tarikh" name="tarikh">{{i.tarikh.strftime("%d/%m/%Y")}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="masa" class="col-sm-2 control-label">Masa*</label>
-            <div class="col-sm-10">
+            <label for="masa" class="col-sm-4 control-label">Masa*</label>
+            <div class="col-sm-8">
               <h6 id="masa" name="masa">{{i.masa}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="tempat" class="col-sm-2 control-label">Tempat*</label>
-            <div class="col-sm-10">
+            <label for="tempat" class="col-sm-4 control-label">Tempat*</label>
+            <div class="col-sm-8">
               <h6 id="tempat" name="tempat">{{i.tempat}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="vvip" class="col-sm-2 control-label">VVIP*</label>
-            <div class="col-sm-10">
+            <label for="vvip" class="col-sm-4 control-label">VVIP*</label>
+            <div class="col-sm-8">
               <h6 id="vvip" name="vvip">{{i.vvip}}</h6>
             </div>
           </div>
           <div class="form-group row">
-            <label for="ephysician" class="col-sm-2 control-label">EP</label>
-            <div class="col-sm-10">
+            <label for="ephysician" class="col-sm-4 control-label">EP</label>
+            <div class="col-sm-8">
               <input id="ephysician" name="ephysician" type="text" class="form-control" value="{{i.ephysician}}">
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_officer" class="col-sm-2 control-label">MO</label>
-            <div class="col-sm-10">
+            <label for="med_officer" class="col-sm-4 control-label">MO</label>
+            <div class="col-sm-8">
               <input id="med_officer" name="med_officer" type="text" class="form-control" value="{{i.med_officer}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="med_assistant" class="col-sm-2 control-label">PPP</label>
-            <div class="col-sm-10">
+            <label for="med_assistant" class="col-sm-4 control-label">PPP</label>
+            <div class="col-sm-8">
               <input id="med_assistant" name="med_assistant" type="text" class="form-control" value="{{i.med_assistant}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="snurse" class="col-sm-2 control-label">SN</label>
-            <div class="col-sm-10">
+            <label for="snurse" class="col-sm-4 control-label">SN</label>
+            <div class="col-sm-8">
               <input id="snurse" name="snurse" type="text" class="form-control" value="{{i.snurse}}" required>
             </div>
           </div>
           <div class="form-group row">
-            <label for="driver" class="col-sm-2 control-label">PKB</label>
-            <div class="col-sm-10">
+            <label for="driver" class="col-sm-4 control-label">PKB</label>
+            <div class="col-sm-8">
               <input id="driver" name="driver" type="text" class="form-control" value="{{i.driver}}" required>
             </div>
           </div>
 
           <div class="form-group row">
-            <label for="nota" class="col-sm-2 control-label">Nota</label>
-            <div class="col-sm-10">
+            <label for="nota" class="col-sm-4 control-label">Nota</label>
+            <div class="col-sm-8">
             <textarea type="text" class="form-control" name="nota" id="nota" rows="3" placeholder="please remove icons and emoji" value="{{i.nota}}"></textarea>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-sm-2 control-label" for="file1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
-            <div class="col-sm-10">
+            <label class="col-sm-4 control-label" for="file1">File/image <br><i class="fas fa-info-circle fa-lg" data-placement="top" title="Only jpg, png and pdf files allowed"></i></label>
+            <div class="col-sm-8">
               <div id="file1_input">
                 <input type="file" class="form-control-file" id="file1" name="file1">
               </div>

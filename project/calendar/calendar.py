@@ -65,7 +65,11 @@ def index():
     user_role=user_role,
     insert_breaks=insert_breaks,
     remember=True,
-    pakar_etd = Etdstaff.query.all()
+    pakar_etd = Etdstaff.query.filter(Etdstaff.jawatan == 'pakar').order_by(Etdstaff.name).all(),
+    mofficer_etd = Etdstaff.query.filter(Etdstaff.jawatan == 'mofficer').order_by(Etdstaff.name).all(),
+    massist_etd = Etdstaff.query.filter(Etdstaff.jawatan == 'massist').order_by(Etdstaff.name).all(),
+    snurse_etd = Etdstaff.query.filter(Etdstaff.jawatan == 'snurse').order_by(Etdstaff.name).all(),
+    driver_etd = Etdstaff.query.filter(Etdstaff.jawatan == 'driver').order_by(Etdstaff.name).all()
     )
 
 @calendar.route('/selesai')
@@ -130,6 +134,36 @@ def logs():
     user_role=user_role
     )
 
+@calendar.route('/etd_staf')
+@login_required
+def etd_staf():
+    date_times = datetime.now().strftime("%d/%m/%Y")
+    current_month = str(datetime.now().month -1)
+    staf_list = Etdstaff.query.order_by(Etdstaff.jawatan).order_by(Etdstaff.name).all()
+    user_role = User.query.all()
+
+    timeframe = date.today() + timedelta(days=365)
+
+    def splitter(link):
+        name, extension = os.path.splitext(str(link))
+        link=extension
+        return link
+
+    try:
+      username = current_user.username   
+    except:
+      username = None
+
+
+    return render_template('etd_staf.html',
+    username = username,
+    date_times = date_times,
+    splitter=splitter,
+    nav_index = True,
+    current_month=current_month,
+    user_role=user_role,
+    staf_list=staf_list
+    )
 #################### FORM ROUTES #########################
 
 
@@ -267,64 +301,7 @@ def updateevent_admin():
            
         db.session.commit()
         return redirect(request.referrer)
-'''
-@calendar.route('/updateevent_manager', methods=['GET','POST'])
-@login_required
-def updateevent_manager():
 
-    id = request.form['eventupdate-index']
-    ephysician = remove_breaks(request.form['ephysician'])
-    med_officer = remove_breaks(request.form['med_officer'])
-    med_assistant = remove_breaks(request.form['med_assistant'])
-    snurse = remove_breaks(request.form['snurse'])
-    driver = remove_breaks(request.form['driver'])
-    nota = remove_breaks(request.form['nota'])
-    uploaded_file1 = request.files['file1']
-
-    user = current_user.id
-
-
-    filename1 = str(uuid.uuid1()) + "." + secure_filename(os.path.splitext(uploaded_file1.filename)[1])    
-
-    if request.method == 'POST':
-        update_events = Events.query.get(id)
-        if update_events.file1_id == '':
-            if filename1 != '':
-                file1_ext = os.path.splitext(filename1)[1]
-                if file1_ext not in current_app.config['UPLOAD_EXTENSIONS']:
-                    flash('Only upload jpg, png or pdf files', 'danger')
-                    return redirect(request.referrer)
-                elif file1_ext == '':
-                    flash('Please upload appropriate file to File/image', 'danger')
-                    return redirect(request.referrer)
-                else:
-                    new_file1_id = filename1
-                    blob1 = bucket.blob(filename1)
-                    if os.path.splitext(filename1)[1] == '.pdf':
-                        blob1.upload_from_string(uploaded_file1.read(), content_type='application/pdf')
-                    else:
-                        blob1.upload_from_string(uploaded_file1.read())
-                    update_events.file1_id = new_file1_id
-
-            else:
-                file1_id = None
-
-
-
-        update_events.ephysician = ephysician
-        update_events.med_officer = med_officer
-        update_events.med_assistant = med_assistant
-        update_events.snurse = snurse
-        update_events.driver = driver
-        update_events.nota = nota
-
-        
-            
-           
-        db.session.commit()
-        return redirect(request.referrer)
-
-'''
 @calendar.route("/ephysician_form",methods=["POST"])
 def ephysician_form():
     if request.method == "POST":
@@ -440,6 +417,31 @@ def selesai_form():
         db.session.commit()
         return redirect(request.referrer)
  
+@calendar.route('/staf_register', methods=['POST'])
+def staf_register():
+
+    nama_staf = request.form['nama_staf']
+    jawatan_staf = request.form['jawatan_staf']
+
+    nama_staf = nama_staf.capitalize()
+
+    new_register = Etdstaff(name=nama_staf, jawatan=jawatan_staf)
+    
+    if request.method == 'POST':
+        check_staf = Etdstaff.query.filter_by(name = nama_staf).first()
+        if nama_staf != 'NULL':
+            if check_staf:
+                flash('Nama telah wujud', 'warning')
+                return redirect(url_for('calendar.etd_staf'))
+            else:
+                db.session.add(new_register)
+                db.session.commit()
+                flash('Pendaftaran berjaya', 'success')
+                return redirect(url_for('calendar.etd_staf'))
+
+        else:
+            flash('Pendaftaran gagal', 'warning')
+            return redirect(url_for('calendar.etd_staf'))
 
 '''
 @calendar.route('/test')
